@@ -21,7 +21,8 @@
         android:id="@+id/transferInputRecipientFragment"
         android:name="com.example.live_code_enigma.view.fragment.TransferInputRecipientFragment"
         android:label="fragment_transfer_input_recipient"
-        tools:layout="@layout/fragment_transfer_input_recipient" />
+        tools:layout="@layout/fragment_transfer_input_recipient" >
+    </fragment>
     <fragment
         android:id="@+id/transferInputAmountFragment"
         android:name="com.example.live_code_enigma.view.fragment.TransferInputAmountFragment"

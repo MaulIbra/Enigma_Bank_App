@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_transfer_input_amount.*
 
 class TransferInputAmountFragment : Fragment(),View.OnClickListener {
     val transactionViewModel by activityViewModels<TransactionViewModel>()
-    val authenticationViewModel by activityViewModels<AuthenticationViewModel>()
     lateinit var navController: NavController
 
     lateinit var recepientId:String
@@ -49,7 +48,7 @@ class TransferInputAmountFragment : Fragment(),View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0){
             btnNext-> {
-                val userId = authenticationViewModel.userLogin.value!!.userId
+                val userId = 629620
                 val amount = etAmount.text.toString()
                 val description = etDescription.text.toString()
                 if (validationInput(amount,description)){

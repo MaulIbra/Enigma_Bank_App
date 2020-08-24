@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
     val authenticationViewModel by activityViewModels<AuthenticationViewModel>()
     lateinit var navController: NavController
+    lateinit var userId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +42,21 @@ class HomeFragment : Fragment(),View.OnClickListener {
         btnHistory.setOnClickListener(this)
         btnPhone.setOnClickListener(this)
         authenticationViewModel.userLogin.observe(viewLifecycleOwner, Observer {
-            tvSaldo.text = it.balance.toString()
+            if (it == null){
+                tvSaldo.text = "USER ID TIDAK DITEMUKAN"
+            }else{
+                tvSaldo.text ="$ ${it.balance.toString()}"
+                userId = it.userId.toString()
+            }
+
         })
     }
 
     override fun onClick(p0: View?) {
         when(p0){
-            btnTransfer -> navController.navigate(R.id.toTransactionActivity)
+            btnTransfer -> {
+                navController.navigate(R.id.toTransactionActivity)
+            }
             btnHistory -> navController.navigate(R.id.toTransactionListFragment)
             btnPhone -> {
                 val intent = Intent(Intent.ACTION_DIAL)

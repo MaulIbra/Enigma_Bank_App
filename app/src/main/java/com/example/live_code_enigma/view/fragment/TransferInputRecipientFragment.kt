@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 
 import com.example.live_code_enigma.R
 import com.example.live_code_enigma.common.validationInput
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_transfer_input_recipient.*
 class TransferInputRecipientFragment : Fragment(),View.OnClickListener {
 
     lateinit var navController: NavController
+    lateinit var userId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
