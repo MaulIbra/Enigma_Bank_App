@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transfer_navigation"
+    app:startDestination="@id/transferInputRecipientFragment">
+
+    <action android:id="@+id/toTransferInputRecipientFragment"
+        app:destination="@id/transferInputRecipientFragment"
+        />
+
+    <action android:id="@+id/toTransferInputAmountFragment"
+        app:destination="@id/transferInputAmountFragment"
+        />
+
+    <action android:id="@+id/toTransferConfirmation"
+        app:destination="@id/transferConfirmation"
+        />
+
+    <fragment
+        android:id="@+id/transferInputRecipientFragment"
+        android:name="com.example.live_code_enigma.view.fragment.TransferInputRecipientFragment"
+        android:label="fragment_transfer_input_recipient"
+        tools:layout="@layout/fragment_transfer_input_recipient" />
+    <fragment
+        android:id="@+id/transferInputAmountFragment"
+        android:name="com.example.live_code_enigma.view.fragment.TransferInputAmountFragment"
+        android:label="fragment_transfer_input_amount"
+        tools:layout="@layout/fragment_transfer_input_amount" />
+    <fragment
+        android:id="@+id/transferConfirmation"
+        android:name="com.example.live_code_enigma.view.fragment.TransferConfirmation"
+        android:label="fragment_transfer_confirmation"
+        tools:layout="@layout/fragment_transfer_confirmation" />
+</navigation>
