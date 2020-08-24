@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 
 import com.example.live_code_enigma.R
+import com.example.live_code_enigma.common.validationInput
 import com.example.live_code_enigma.model.User
 import com.example.live_code_enigma.viewmodel.AuthenticationViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -40,12 +42,19 @@ class LoginFragment : Fragment(),View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0){
             btnLogin -> {
-                val user = User(
-                    username = etUsername.text.toString(),
-                    password = etPassword.text.toString()
-                )
-                authenticationViewModel.getUser(user)
-                navController.navigate(R.id.toHomeFragment)
+                val username = etUsername.text.toString()
+                val password = etPassword.text.toString()
+                if (validationInput(username,password)){
+                    val user = User(
+                        username = username,
+                        password = password
+                    )
+                    authenticationViewModel.getUser(user)
+                    navController.navigate(R.id.toHomeFragment)
+                }else{
+                    Toast.makeText(context,"Input can't be empty",Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
     }

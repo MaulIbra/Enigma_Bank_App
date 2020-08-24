@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 
 import com.example.live_code_enigma.R
+import com.example.live_code_enigma.common.validationInput
 import com.example.live_code_enigma.model.Transaction
 import com.example.live_code_enigma.viewmodel.AuthenticationViewModel
 import com.example.live_code_enigma.viewmodel.TransactionViewModel
@@ -48,18 +50,23 @@ class TransferInputAmountFragment : Fragment(),View.OnClickListener {
         when(p0){
             btnNext-> {
                 val userId = authenticationViewModel.userLogin.value!!.userId
-                val amount = etAmount.text.toString().toInt()
+                val amount = etAmount.text.toString()
                 val description = etDescription.text.toString()
-                val transaction = Transaction(
-                    userId = userId,
-                    amount = amount,
-                    bankName = bankName,
-                    recipientId = recepientId.toInt(),
-                    description = description
-                )
-                transactionViewModel.createTransaction(transaction)
-                transactionViewModel.getHistoryTransaction(userId)
-                navController.navigate(R.id.toTransferConfirmation)
+                if (validationInput(amount,description)){
+                    val transaction = Transaction(
+                        userId = userId,
+                        amount = amount.toInt(),
+                        bankName = bankName,
+                        recipientId = recepientId.toInt(),
+                        description = description
+                    )
+                    transactionViewModel.createTransaction(transaction)
+                    transactionViewModel.getHistoryTransaction(userId)
+                    navController.navigate(R.id.toTransferConfirmation)
+                }else{
+                    Toast.makeText(context,"input can't be empty",Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
     }

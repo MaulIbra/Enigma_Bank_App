@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 
 import com.example.live_code_enigma.R
+import com.example.live_code_enigma.common.validationInput
 import com.example.live_code_enigma.viewmodel.TransactionViewModel
 import kotlinx.android.synthetic.main.fragment_transfer_input_recipient.*
 
 class TransferInputRecipientFragment : Fragment(),View.OnClickListener {
 
-    val transactionViewModel by activityViewModels<TransactionViewModel>()
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +41,17 @@ class TransferInputRecipientFragment : Fragment(),View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0){
             btnNext-> {
-                var bundle = bundleOf(
-                    "recipientId" to etRecipient.text.toString(),
-                    "bankName" to spinnerBank.selectedItem.toString()
-                )
-                navController.navigate(R.id.toTransferInputAmountFragment)
+                val recepientId = etRecipient.text.toString()
+                val selectedBank = spinnerBank.selectedItem.toString()
+                if (validationInput(recepientId,selectedBank)){
+                    var bundle = bundleOf(
+                        "recipientId" to recepientId,
+                        "bankName" to selectedBank
+                    )
+                    navController.navigate(R.id.toTransferInputAmountFragment,bundle)
+                }else{
+                    Toast.makeText(context,"input can't be empty",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
